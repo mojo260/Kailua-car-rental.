@@ -46,40 +46,40 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    insertCar();
+                    insertBil();
                     break;
                 case 2:
-                    insertCustomer();
+                    insertKunde();
                     break;
                 case 3:
-                    insertRental();
+                    insertLejekontrakt();
                     break;
                 case 4:
-                    displayAllCars();
+                    visAlleBiler();
                     break;
                 case 5:
-                    displayAllCustomers();
+                    visAlleKunder();
                     break;
                 case 6:
-                    displayAllRentals();
+                    lejekontrakter();
                     break;
                 case 7:
-                    updateCar();
+                    updateBil();
                     break;
                 case 8:
-                    updaterKunder();
+                    updateKunde();
                     break;
                 case 9:
-                    updateRental();
+                    updateLejekontrakt();
                     break;
                 case 10:
-                    deleteCar();
+                    deleteBil();
                     break;
                 case 11:
-                    deleteCustomer();
+                    deleteKunde();
                     break;
                 case 12:
-                    deleteRental();
+                    deleteLejekontrakt();
                     break;
                 case 13:
                     System.out.println("Exiting...");
@@ -91,43 +91,43 @@ public class Main {
 
         scanner.close();
     }
-    private static void insertCar() {
+    private static void insertBil() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("==== Insert Car ====");
+        System.out.println("-Opret bil-");
 
-        System.out.print("Enter car brand and model: ");
-        String brandModel = scanner.nextLine();
+        System.out.print("bil mærke: ");
+        String mærke = scanner.nextLine();
 
-        System.out.print("Enter fuel type: ");
-        String fuelType = scanner.nextLine();
+        System.out.print("brændstof type: ");
+        String brændStofType = scanner.nextLine();
 
-        System.out.print("Enter registration number: ");
-        String regNumber = scanner.nextLine();
+        System.out.print("registration nummer: ");
+        String registrationNr = scanner.nextLine();
 
-        System.out.print("Enter registration date: ");
-        String regDate = scanner.nextLine();
+        System.out.print("registrations dato: ");
+        String registrationDato = scanner.nextLine();
 
-        System.out.print("Enter vehicle kilometers: ");
-        int kilometers = scanner.nextInt();
+        System.out.print("kilometer tal: ");
+        int kilometerTal = scanner.nextInt();
 
         try {
-            Bil car = new Bil(brandModel, fuelType, regNumber, regDate, kilometers);
+            Bil car = new Bil(mærke, brændStofType, registrationNr, registrationDato, kilometerTal);
             car.saveToDatabase(connection);
-            System.out.println("Car successfully inserted!");
+            System.out.println("bilen blev tilføjet!");
         } catch (SQLException e) {
-            System.out.println("Error inserting car: " + e.getMessage());
+            System.out.println("bilen kunne ikke tilføjes: " + e.getMessage());
         }
     }
-    private static void deleteCar() throws SQLException {
+    private static void deleteBil() throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter Car ID to delete: ");
-        int carID = scanner.nextInt();
+        System.out.print("indtast bil id: ");
+        int bilID = scanner.nextInt();
 
         String query = "DELETE FROM Biler WHERE bil_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, carID);
+            preparedStatement.setInt(1, bilID);
 
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
@@ -138,7 +138,7 @@ public class Main {
         }
     }
 
-    private static void updateCar() throws SQLException {
+    private static void updateBil() throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Indtast bil id: ");
@@ -179,7 +179,7 @@ public class Main {
         }
     }
 
-    private static void insertCustomer() {
+    private static void insertKunde() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("opret kunde");
 
@@ -215,7 +215,7 @@ public class Main {
             System.out.println("kunne ikke indtaste kunde: " + e.getMessage());
         }
     }
-    private static void updaterKunder() throws SQLException {
+    private static void updateKunde() throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter Customer ID to update: ");
@@ -265,13 +265,13 @@ public class Main {
         }
     }
 
-    private static void deleteCustomer() throws SQLException {
+    private static void deleteKunde() throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter Customer ID to delete: ");
+        System.out.print("indtast kunde id: ");
         int kunde_id = scanner.nextInt();
 
-        String query = "DELETE FROM Lejere WHERE kunde_id = ?";
+        String query = "DELETE FROM Kunder WHERE kunde_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, kunde_id);
@@ -286,132 +286,132 @@ public class Main {
     }
 
 
-    private static void insertRental() {
+    private static void insertLejekontrakt() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Insert Rental");
+        System.out.println("Insert lejekontrakt");
 
-        System.out.print("Enter customer ID: ");
-        int customerId = scanner.nextInt();
+        System.out.print("indtast kunde id: ");
+        int kundeID = scanner.nextInt();
 
-        System.out.print("Enter car ID: ");
-        int carId = scanner.nextInt();
+        System.out.print("indtast bil id: ");
+        int bilID = scanner.nextInt();
 
         scanner.nextLine();
 
-        System.out.print("Enter rental start date and time: ");
-        String startDate = scanner.nextLine();
+        System.out.print("indtast start dato: ");
+        String startDato = scanner.nextLine();
 
-        System.out.print("Enter rental end date and time: ");
-        String endDate = scanner.nextLine();
+        System.out.print("indtast slut dato: ");
+        String slutDato = scanner.nextLine();
 
-        System.out.print("Enter max kilometers allowed: ");
-        int maxKilometers = scanner.nextInt();
+        System.out.print("indtast max kilometer tal: ");
+        int maxKM = scanner.nextInt();
 
-        System.out.print("Enter starting kilometers: ");
-        int startKilometers = scanner.nextInt();
+        System.out.print("indtast nuværende kilometertal: ");
+        int startKm = scanner.nextInt();
 
         try {
-            Lejekontrakt rental = new Lejekontrakt(customerId, carId, startDate, endDate, maxKilometers, startKilometers);
+            Lejekontrakt rental = new Lejekontrakt(kundeID, bilID, startDato, slutDato, maxKM, startKm);
             rental.saveToDatabase(connection);
-            System.out.println("Rental successfully inserted!");
+            System.out.println("lejekontrakt tilføjet!");
         } catch (SQLException e) {
-            System.out.println("Error inserting rental: " + e.getMessage());
+            System.out.println("fejl kunne ikke tilføke lejekontrakt: " + e.getMessage());
         }
     }
-    private static void updateRental() throws SQLException {
+    private static void updateLejekontrakt() throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter Rental ID to update: ");
-        int rentalID = scanner.nextInt();
+        int lejekontraktID = scanner.nextInt();
         scanner.nextLine();  // Consume the newline character
 
         System.out.println("Enter updated rental details:");
         System.out.print("Customer ID: ");
-        int customerID = scanner.nextInt();
+        int kundeID = scanner.nextInt();
         System.out.print("Car ID: ");
-        int carID = scanner.nextInt();
+        int bilID = scanner.nextInt();
         scanner.nextLine(); // Consume the newline character
         System.out.print("Start Date and Time: ");
-        String startDate = scanner.nextLine();
+        String startDato = scanner.nextLine();
         System.out.print("End Date and Time: ");
-        String endDate = scanner.nextLine();
+        String slutDato = scanner.nextLine();
         System.out.print("Max Kilometers: ");
-        int maxKilometers = scanner.nextInt();
+        int maxKm = scanner.nextInt();
         System.out.print("Starting Kilometers: ");
-        int startKilometers = scanner.nextInt();
+        int startKm = scanner.nextInt();
 
         String query = "UPDATE Lejekontrakter SET LejerID = ?, BilID = ?, FraDatoTid = ?, TilDatoTid = ?, " +
                 "MaxKilometer = ?, StartKilometer = ? WHERE KontraktID = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, customerID);
-            preparedStatement.setInt(2, carID);
-            preparedStatement.setString(3, startDate);
-            preparedStatement.setString(4, endDate);
-            preparedStatement.setInt(5, maxKilometers);
-            preparedStatement.setInt(6, startKilometers);
-            preparedStatement.setInt(7, rentalID);
+            preparedStatement.setInt(1, kundeID);
+            preparedStatement.setInt(2, bilID);
+            preparedStatement.setString(3, startDato);
+            preparedStatement.setString(4, slutDato);
+            preparedStatement.setInt(5, maxKm);
+            preparedStatement.setInt(6, startKm);
+            preparedStatement.setInt(7, lejekontraktID);
 
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Rental updated successfully.");
+                System.out.println("lejekontrakt updated.");
             } else {
-                System.out.println("Rental not found or update failed.");
+                System.out.println("kunne ikke finde lejekontrakt.");
             }
         }
     }
 
-    private static void deleteRental() throws SQLException {
+    private static void deleteLejekontrakt() throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter Rental ID to delete: ");
-        int rentalID = scanner.nextInt();
+        System.out.print("indtast lejekontrakt id: ");
+        int lejekontraktID = scanner.nextInt();
 
         String query = "DELETE FROM Lejekontrakter WHERE KontraktID = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, rentalID);
+            preparedStatement.setInt(1, lejekontraktID);
 
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Rental deleted successfully.");
+                System.out.println("lejekontrakten blev slettet.");
             } else {
-                System.out.println("Rental not found or deletion failed.");
+                System.out.println("kunne ikke finde lejekontrakt.");
             }
         }
     }
 
 
-    private static void displayAllCars() {
+    private static void visAlleBiler() {
         try {
-            List<Bil> cars = Bil.getAllBiler(connection);
+            List<Bil> biler = Bil.getAllBiler(connection);
             System.out.println("==== All Cars ====");
-            for (Bil car : cars) {
-                System.out.println(car);
+            for (Bil bil : biler) {
+                System.out.println(bil);
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving cars: " + e.getMessage());
         }
     }
 
-    private void displayAllCustomers() {
+    private static void visAlleKunder() {
         try {
             List<Kunder> kunder = Kunder.getAllkunder(connection);
-            System.out.println("==== All Customers ====");
-            for (Kunder customer : kunder) {
-                System.out.println(customer);
+            System.out.println("All kunder");
+            for (Kunder kunder1 : kunder) {
+                System.out.println(kunder1);
             }
-        } catch (SQLException e) {
-            System.out.println("Error retrieving customers: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Fejl ved at finde kunder ");
         }
     }
 
-    private static void displayAllRentals() {
+    private static void lejekontrakter() {
         try {
-            List<Lejekontrakt> rentals = Lejekontrakt.getAllLejekontrakter(connection);
-            System.out.println("==== All Rentals ====");
-            for (Lejekontrakt rental : rentals) {
-                System.out.println(rental);
+            List<Lejekontrakt> lejekontrakter = Lejekontrakt.getAllLejekontrakter(connection);
+            System.out.println("All lejekontrakter");
+            for (Lejekontrakt lejekontrakt : lejekontrakter) {
+                System.out.println(lejekontrakt);
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving rentals: " + e.getMessage());

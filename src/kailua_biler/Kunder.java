@@ -39,6 +39,10 @@ public class Kunder {
         this.kørekort_udstedelsesdato = kørekort_udstedelsesdato;
     }
 
+    public static List<Kunder> getAllkunder(Connection connection) {
+        return null;
+    }
+
     public int getleje_kontrakt_id() {
         return lejer_kontrakt_id;
     }
