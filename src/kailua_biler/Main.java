@@ -229,7 +229,7 @@ public class Main {
         String address = scanner.nextLine();
         System.out.print("postnummer: ");
         int postnummer = scanner.nextInt();
-        scanner.nextLine();  // Consume the newline character
+        scanner.nextLine();
         System.out.print("by: ");
         String stad = scanner.nextLine();
         System.out.print("Telefon nummer: ");
@@ -321,16 +321,16 @@ public class Main {
     private static void updateLejekontrakt() throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter Rental ID to update: ");
+        System.out.print("indtast lejekontrakt id: ");
         int lejekontraktID = scanner.nextInt();
-        scanner.nextLine();  // Consume the newline character
+        scanner.nextLine();
 
         System.out.println("Enter updated rental details:");
         System.out.print("Customer ID: ");
         int kundeID = scanner.nextInt();
         System.out.print("Car ID: ");
         int bilID = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        scanner.nextLine();
         System.out.print("Start Date and Time: ");
         String startDato = scanner.nextLine();
         System.out.print("End Date and Time: ");
